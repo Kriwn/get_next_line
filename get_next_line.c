@@ -16,27 +16,32 @@ char *clearline(char *file,size_t pos)
 {
 	char *temp;
 	size_t num;
+	size_t n;
 
 	num = ft_strlen(file) - pos;
-	printf("%s\n|",file);
 	if (num == 0)
 	{
-		printf("USE\n");
 		free(file);
 		file = ft_strdup("");
 	}
 	else
 	{
-		temp =malloc(sizeof(char)  * (num +1));
+		n = 0;
+		temp =malloc(sizeof(char)  * (num));
 		if (!temp)
-		temp[num] = 0;
-		while (file[pos - 1+num])
+		temp[num] = '\0';
+		num = 0;
+		// printf("%ld\n",pos);
+		while (file[pos - 1 +num])
 		{
-			temp[num] = file[pos + num];
+			temp[num] = file[pos+num];
 			num++;
 		}
-
+		// printf("TEMP IS [%s]\n",temp);
+		free(file);
+		file = temp;
 	}
+	return(file);
 }
 
 char *readline(char *file,char *buffer,int fd)
@@ -84,8 +89,6 @@ char *makebuff(char **file,int fd)
 	return (buffer);
 }
 
-
-
 char	*get_next_line(int fd)
 {
 	static char * file[FD_MAX + 1];
@@ -101,6 +104,7 @@ char	*get_next_line(int fd)
 		return (NULL);
 	file[fd] = readline(file[fd],buffer,fd);
 	while(file[fd][count] != '\0' && file[fd][count++] != '\n');
+	// printf("indext in count is %c\n",file[fd][count]);
 	ans = malloc(sizeof(char) * count + 1);
 	ans[count] = '\0';
 	ft_memcpy(ans,file[fd],count);
@@ -117,18 +121,17 @@ int main()
 {
 	int fd = open("test.txt",O_RDONLY);
 	char *ans;
-	// while (ans =  get_next_line(fd))
-	// {
+	while ((ans =  get_next_line(fd)))
+	{
+		printf("%s",ans);
+		free(ans);
+	}
+
+	// ans = get_next_line(fd);
 	// 	printf("%s",ans);
 	// 	free(ans);
-	// }
-
-	ans = get_next_line(fd);
-		printf("%s",ans);
-		free(ans);
-	printf("-------------------\n");
-	ans = get_next_line(fd);
-		printf("%s",ans);
-		free(ans);
-
+	// printf("-------------------\n");
+	// ans = get_next_line(fd);
+	// 	printf("%s",ans);
+	// 	free(ans);
 }

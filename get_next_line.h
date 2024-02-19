@@ -17,7 +17,7 @@
 # include <stdlib.h>
 # include <fcntl.h>
 
-# define BUFFER_SIZE 2
+# define BUFFER_SIZE 10
 
 # define FD_MAX 4096
 
