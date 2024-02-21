@@ -6,7 +6,7 @@
 /*   By: krwongwa <krwongwa@student.42bangkok.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/18 17:29:23 by krwongwa          #+#    #+#             */
-/*   Updated: 2024/02/18 19:13:37 by krwongwa         ###   ########.fr       */
+/*   Updated: 2024/02/21 14:25:49 by krwongwa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,11 @@ size_t	ft_strlen(const char *s)
 	size_t	count;
 
 	count = 0;
-	while (s[count])
-		count++;
+	while (s[count++]);
 	return (count);
 }
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin(char *s1, char const *s2)
 {
 	size_t	i;
 	size_t	n;
@@ -31,10 +30,15 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	i = 0;
 	n = 0;
 	if (!s1 || !s2)
-		return (NULL);
+	{
+		return (ft_strdup(""));
+	}
 	str = malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
 	if (!str)
+	{
+		free(s1);
 		return (NULL);
+	}
 	while (s1[i])
 	{
 		str[i] = s1[i];
@@ -45,6 +49,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 		str[n + i] = s2[n];
 		n++;
 	}
+	free(s1);
 	str[n + i] = '\0';
 	return (str);
 }
@@ -88,43 +93,43 @@ char	*ft_strrchr(const char *s, int c)
 	return (ans);
 }
 
-size_t	ft_strlcat(char *dst, const char *src, size_t size)
+size_t	ft_strlcpy(char *dst, const char *src, size_t size)
 {
 	size_t	i;
-	size_t	j;
+	size_t	len;
 
-	if (!dst && !src)
+	i = 0;
+	len = 0;
+	len = ft_strlen(src);
+	if (!dst || !src)
 		return (0);
-	if (size == 0)
-		return (ft_strlen(src));
-	j = 0;
-	i = ft_strlen(dst);
-	if (size <= ft_strlen(dst))
-		return (ft_strlen(src) + size);
-	while (src[j] && i + j + 1 < size)
+	if (size > 0)
 	{
-		dst[i + j] = src[j];
-		j++;
+		while (src[i] && i < size - 1)
+		{
+			dst[i] = src[i];
+			i++;
+		}
+		dst[i] = '\0';
 	}
-	dst[i + j] = '\0';
-	return (i + ft_strlen(src));
+	return (len);
 }
 
-void	*ft_memcpy(void *dest, const void *src, size_t n)
+char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
-	size_t			i;
-	unsigned char	*destt;
-	unsigned char	*srcc;
+	char	*str;
+	size_t	len_s;
 
-	srcc = (unsigned char *)src;
-	destt = (unsigned char *)dest;
-	i = 0;
-	if (!src && !dest)
+	if (!s)
 		return (NULL);
-	while (i < n)
-	{
-		destt[i] = srcc[i];
-		i++;
-	}
-	return (dest);
+	len_s = ft_strlen(s);
+	if (start > len_s)
+		start = len_s;
+	if (len >= len_s - start)
+		len = len_s - start;
+	str = malloc(sizeof(char) * (len + 1));
+	if (!str)
+		return (NULL);
+	ft_strlcpy(str, &s[start], len + 1);
+	return (str);
 }
