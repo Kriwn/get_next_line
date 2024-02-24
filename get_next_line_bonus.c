@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: krwongwa <krwongwa@student.42bangkok.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/18 17:00:39 by krwongwa          #+#    #+#             */
-/*   Updated: 2024/02/24 20:16:34 by krwongwa         ###   ########.fr       */
+/*   Created: 2024/02/24 20:19:07 by krwongwa          #+#    #+#             */
+/*   Updated: 2024/02/24 20:19:35 by krwongwa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,23 +120,3 @@ char	*get_next_line(int fd)
 	count += (file[fd][count] == '\n');
 	return (clearline(&file[fd], count));
 }
-
-/*
-int main()
-{
-	int fd = open("1char.txt",O_RDONLY);
-	char *ans;
-	// while ((ans =  get_next_line(fd)))
-	// {
-	// 	printf("%p",ans);
-	// 	free(ans);
-	// }
-	ans = get_next_line(fd);
-		printf("%s",ans);
-		free(ans);
-	printf("-------------------\n");
-	ans = get_next_line(fd);
-		printf("%s",ans);
-		free(ans);
-}
-*/
