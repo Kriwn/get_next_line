@@ -6,11 +6,11 @@
 /*   By: krwongwa <krwongwa@student.42bangkok.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/24 20:19:54 by krwongwa          #+#    #+#             */
-/*   Updated: 2024/02/24 20:20:37 by krwongwa         ###   ########.fr       */
+/*   Updated: 2024/02/24 21:07:28 by krwongwa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 char	*ft_strjoin(char *s1, char const *s2)
 {

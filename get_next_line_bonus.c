@@ -6,11 +6,11 @@
 /*   By: krwongwa <krwongwa@student.42bangkok.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/24 20:19:07 by krwongwa          #+#    #+#             */
-/*   Updated: 2024/02/24 20:19:35 by krwongwa         ###   ########.fr       */
+/*   Updated: 2024/02/24 21:07:14 by krwongwa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 size_t	ft_strlen(const char *s)
 {
