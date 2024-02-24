@@ -6,20 +6,11 @@
 /*   By: krwongwa <krwongwa@student.42bangkok.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/18 17:29:23 by krwongwa          #+#    #+#             */
-/*   Updated: 2024/02/21 14:25:49 by krwongwa         ###   ########.fr       */
+/*   Updated: 2024/02/24 14:05:12 by krwongwa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-
-size_t	ft_strlen(const char *s)
-{
-	size_t	count;
-
-	count = 0;
-	while (s[count++]);
-	return (count);
-}
 
 char	*ft_strjoin(char *s1, char const *s2)
 {
@@ -29,10 +20,6 @@ char	*ft_strjoin(char *s1, char const *s2)
 
 	i = 0;
 	n = 0;
-	if (!s1 || !s2)
-	{
-		return (ft_strdup(""));
-	}
 	str = malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
 	if (!str)
 	{
@@ -130,6 +117,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	str = malloc(sizeof(char) * (len + 1));
 	if (!str)
 		return (NULL);
+	len_s = 0;
 	ft_strlcpy(str, &s[start], len + 1);
 	return (str);
 }

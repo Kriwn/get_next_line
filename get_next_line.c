@@ -6,47 +6,60 @@
 /*   By: krwongwa <krwongwa@student.42bangkok.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/18 17:00:39 by krwongwa          #+#    #+#             */
-/*   Updated: 2024/02/21 19:59:17 by krwongwa         ###   ########.fr       */
+/*   Updated: 2024/02/24 15:13:57 by krwongwa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-char *clearline(char **file,size_t pos)
+size_t	ft_strlen(const char *s)
 {
-	char *temp;
-	char *ans;
+	size_t	count;
 
-	ans = ft_substr(*file,0,pos);
+	count = 0;
+	while (s[count])
+		count++;
+	return (count);
+}
+
+char	*clearline(char **file, size_t pos)
+{
+	char	*temp;
+	char	*ans;
+
+	ans = ft_substr(*file, 0, pos);
 	if (!ans)
 	{
-		free(*file);
+		if (*file)
+			free(*file);
 		return (NULL);
 	}
-	temp = ft_substr(*file,pos,ft_strlen(*file));
-	free(*file);
+	temp = ft_substr(*file, pos, ft_strlen(*file));
+	if (*file)
+		free(*file);
 	if (!temp)
 		return (NULL);
 	*file = temp;
 	return (ans);
 }
 
-char *readline(char *file,char *buffer,int fd)
+char	*readline(char *file, char *buffer, int fd)
 {
-	ssize_t len;
+	ssize_t	len;
 
 	len = 1;
-	while (len > 0 && ft_strrchr(file,'\n') == NULL)
+	while (len > 0 && ft_strrchr(file, '\n') == NULL)
 	{
-		len = read(fd,buffer,BUFFER_SIZE);
+		len = read(fd, buffer, BUFFER_SIZE);
 		if (len == -1)
 		{
-			free(file);
+			if (file)
+				free(file);
 			free(buffer);
 			return (NULL);
 		}
 		buffer[len] = '\0';
-		file = ft_strjoin(file,buffer);
+		file = ft_strjoin(file, buffer);
 		if (!file)
 		{
 			free(buffer);
@@ -57,69 +70,73 @@ char *readline(char *file,char *buffer,int fd)
 	return (file);
 }
 
-char *makebuff(char **file,int fd)
+char	*makebuff(char **file, int fd)
 {
-	char *buffer;
+	char	*buffer;
 
 	if (file[fd] == NULL)
 	{
 		file[fd] = ft_strdup("");
-		if(!file[fd])
+		if (!file[fd])
 			return (NULL);
 	}
 	buffer = malloc(sizeof(char) * (BUFFER_SIZE + 1));
 	if (!buffer)
 	{
-		free(file[fd]);
-		file[fd] = NULL;
-		return(NULL);
+		if (file[fd])
+		{
+			free(file[fd]);
+			file[fd] = NULL;
+		}
+		return (NULL);
 	}
 	return (buffer);
 }
 
 char	*get_next_line(int fd)
 {
-	static char * file[FD_MAX];
-	char	*buffer;
-	size_t count;
+	static char	*file[FD_MAX];
+	char		*buffer;
+	size_t		count;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
 	count = 0;
-	buffer = makebuff(file,fd);
+	buffer = makebuff(file, fd);
 	if (!buffer)
 		return (NULL);
-	file[fd] = readline(file[fd],buffer,fd);
+	file[fd] = readline(file[fd], buffer, fd);
 	if (!file[fd])
 		return (NULL);
 	if (!*file[fd])
 	{
-		// printf("ADASDAS\n");
 		if (file[fd])
 			free(file[fd]);
 		file[fd] = NULL;
-		return(NULL);
+		return (NULL);
 	}
-	while(file[fd][count] != '\0' && file[fd][count] != '\n')
+	while (file[fd][count] != '\0' && file[fd][count] != '\n')
 		count++;
 	count += (file[fd][count] == '\n');
-	return (clearline(&file[fd],count));
+	return (clearline(&file[fd], count));
 }
 
-// int main()
-// {
-// 	int fd = open("31231231",O_RDONLY);
-// 	char *ans;
-// 	while ((ans =  get_next_line(fd)))
-// 	{
-// 		printf("%s",ans);
-// 		free(ans);
-// 	}
-// 	// ans = get_next_line(fd);
-// 	// 	printf("%s",ans);
-// 	// 	free(ans);
-// 	// printf("-------------------\n");
-// 	// ans = get_next_line(fd);
-// 	// 	printf("%s",ans);
-// 	// 	free(ans);
-// }
+/*
+int main()
+{
+	int fd = open("31231231",O_RDONLY);
+	char *ans;
+	while ((ans =  get_next_line(fd)))
+	{
+		printf("%s",ans);
+		free(ans);
+	}
+	// ans = get_next_line(fd);
+	// 	printf("%s",ans);
+	// 	free(ans);
+	// printf("-------------------\n");
+	// ans = get_next_line(fd);
+	// 	printf("%s",ans);
+	// 	free(ans);
+}
+*/
