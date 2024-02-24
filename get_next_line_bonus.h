@@ -6,7 +6,7 @@
 /*   By: krwongwa <krwongwa@student.42bangkok.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/18 17:01:13 by krwongwa          #+#    #+#             */
-/*   Updated: 2024/02/24 20:22:55 by krwongwa         ###   ########.fr       */
+/*   Updated: 2024/02/24 22:01:01 by krwongwa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,9 @@
 # include <stdlib.h>
 # include <fcntl.h>
 
-// # define BUFFER_SIZE 42
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 42
+# endif
 
 # define FD_MAX 4096
 
