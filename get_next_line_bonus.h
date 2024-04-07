@@ -36,7 +36,7 @@ size_t	ft_strlcat(char *dst, const char *src, size_t size);
 void	*ft_memcpy(void *dest, const void *src, size_t n);
 char	*get_next_line(int fd);
 char	*makebuff(char **file, int fd);
-char	*readline(char *file, char *buffer, int fd);
+char	*ft_readline(char *file, char *buffer, int fd);
 char	*clearline(char **file, size_t pos);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 

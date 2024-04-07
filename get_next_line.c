@@ -43,7 +43,7 @@ char	*clearline(char **file, size_t pos)
 	return (ans);
 }
 
-char	*readline(char *file, char *buffer, int fd)
+char	*ft_readline(char *file, char *buffer, int fd)
 {
 	ssize_t	len;
 
@@ -105,7 +105,7 @@ char	*get_next_line(int fd)
 	buffer = makebuff(file, fd);
 	if (!buffer)
 		return (NULL);
-	file[fd] = readline(file[fd], buffer, fd);
+	file[fd] = ft_readline(file[fd], buffer, fd);
 	if (!file[fd])
 		return (NULL);
 	if (!*file[fd])
